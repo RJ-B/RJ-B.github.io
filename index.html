@@ -291,12 +291,7 @@ section{scroll-margin-top:90px}
 /* 3D náklon projektových karet (řízeno JS) */
 .proj{transform-style:preserve-3d;will-change:transform}
 
-/* respektuj reduced-motion */
-@media(prefers-reduced-motion:reduce){
-  *{animation:none !important;transition:none !important}
-  .reveal{opacity:1;transform:none}
-  .dot-canvas,.scroll-progress{display:none}
-}
+/* Pozn.: animace běží vždy (na přání uživatele) — pravidlo pro „reduced motion" záměrně vynecháno. */
 </style>
 </head>
 <body>
@@ -514,7 +509,7 @@ section{scroll-margin-top:90px}
 
 <script>
 (function(){
-  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reduceMotion = false; /* animace běží vždy (na přání uživatele), nezávisle na systémovém nastavení */
   const isTouch = matchMedia('(hover: none)').matches;
 
   // rok
