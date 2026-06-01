@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--
+  ============================================================================
+  OSOBNI PREZENTACE - glassmorphism, dark, one-page
+  ----------------------------------------------------------------------------
+  CO UPRAVIT (mista k uprave jsou v kodu oznacena komentarem  EDIT N: ... ):
+    1. [Tve jmeno]      - v titulku, v navigaci a v hero sekci
+    2. Hero podnadpis   - jednou vetou kdo jsi / co delas
+    3. O mne - text     - 2 odstavce o tobe (vyvojar + obchodnik)
+    4. Statistiky       - roky praxe / pocet projektu / klienti
+    5. Tech stack       - uprav seznam technologii podle reality
+    6. Projekty         - 3 karty: nazev, popis, stitky, odkazy + obrazek
+    7. Kontakt          - e-mail, telefon, LinkedIn, GitHub
+    8. (volitelne) Fotka - do .avatar a do projektovych karet
+  ============================================================================
+-->
+<!-- EDIT 1: nahraď [Tvé jméno] -->
+<title>Ing. Rostislav Jirák — Fullstack vývojář</title>
+<meta name="description" content="Osobní prezentace fullstack vývojáře — webové a mobilní aplikace, webové stránky." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================ TOKENY ============================ */
+:root{
+  --bg:#070a12;
+  --bg-2:#0a0e1a;
+  --ink:#f4f6fb;
+  --muted:rgba(244,246,251,.62);
+  --faint:rgba(244,246,251,.40);
+  --line:rgba(255,255,255,.09);
+
+  --accent:#2dd4bf;
+  --accent-2:#22d3ee;
+  --accent-grad:linear-gradient(120deg,#2dd4bf,#22d3ee 60%,#38bdf8);
+
+  --glass:rgba(255,255,255,.045);
+  --glass-strong:rgba(255,255,255,.07);
+  --glass-border:rgba(255,255,255,.10);
+  --glass-shadow:0 18px 50px -12px rgba(0,0,0,.55);
+
+  --font-display:'Space Grotesk',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+
+  --maxw:1140px;
+  --radius:20px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+section{scroll-margin-top:90px}
+
+/* ============================ POZADÍ — AURORA ============================ */
+.bg-layer{position:fixed;inset:0;z-index:-3;overflow:hidden;background:
+  radial-gradient(1200px 700px at 15% -10%, rgba(45,212,191,.14), transparent 60%),
+  radial-gradient(1000px 800px at 100% 0%, rgba(129,140,248,.14), transparent 55%),
+  radial-gradient(900px 700px at 50% 120%, rgba(244,114,182,.10), transparent 55%),
+  var(--bg);
+}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;mix-blend-mode:screen;will-change:transform}
+.blob.b1{width:46vw;height:46vw;left:-8vw;top:-6vw;background:radial-gradient(circle,#14b8a6,transparent 65%);animation:drift1 26s ease-in-out infinite}
+.blob.b2{width:42vw;height:42vw;right:-10vw;top:4vw;background:radial-gradient(circle,#6366f1,transparent 65%);animation:drift2 32s ease-in-out infinite}
+.blob.b3{width:40vw;height:40vw;left:28vw;bottom:-14vw;background:radial-gradient(circle,#f472b6,transparent 65%);animation:drift3 30s ease-in-out infinite}
+@keyframes drift1{50%{transform:translate(8vw,6vw) scale(1.12)}}
+@keyframes drift2{50%{transform:translate(-7vw,5vw) scale(1.08)}}
+@keyframes drift3{50%{transform:translate(5vw,-7vw) scale(1.14)}}
+
+/* jemný šum proti banding */
+.noise{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+/* ============================ SKLO util ============================ */
+.glass{
+  background:var(--glass);
+  backdrop-filter:blur(20px) saturate(140%);
+  -webkit-backdrop-filter:blur(20px) saturate(140%);
+  border:1px solid var(--glass-border);
+  border-top-color:rgba(255,255,255,.18);
+  border-radius:var(--radius);
+  box-shadow:var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+/* ============================ NAVIGACE ============================ */
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);width:min(94%,var(--maxw));z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px 12px 20px;border-radius:16px;transition:.4s ease;}
+.nav.scrolled{background:rgba(10,14,26,.55);backdrop-filter:blur(18px) saturate(150%);
+  -webkit-backdrop-filter:blur(18px) saturate(150%);border:1px solid var(--line);box-shadow:0 10px 30px -10px rgba(0,0,0,.5);}
+.brand{font-family:var(--font-display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a{font-size:.9rem;color:var(--muted);padding:8px 14px;border-radius:10px;transition:.25s}
+.nav-links a:hover{color:var(--ink);background:rgba(255,255,255,.05)}
+.nav-cta{font-size:.88rem;font-weight:600;color:#06121a !important;background:var(--accent-grad);
+  padding:9px 16px !important;border-radius:11px;box-shadow:0 6px 20px -6px rgba(45,212,191,.6)}
+.nav-cta:hover{background:var(--accent-grad) !important;filter:brightness(1.06)}
+.burger{display:none;background:none;border:0;cursor:pointer;padding:8px;flex-direction:column;gap:5px}
+.burger span{width:22px;height:2px;background:var(--ink);border-radius:2px;transition:.3s}
+
+/* ============================ LAYOUT ============================ */
+.wrap{width:min(92%,var(--maxw));margin:0 auto}
+.kicker{font-family:var(--font-mono);font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);display:inline-flex;align-items:center;gap:9px;margin-bottom:18px}
+.kicker::before{content:"";width:26px;height:1px;background:var(--accent)}
+.h-title{font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;line-height:1.08}
+.section-head{max-width:640px;margin-bottom:54px}
+.section-head h2{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;letter-spacing:-.02em;margin-bottom:14px}
+.section-head p{color:var(--muted);font-size:1.05rem}
+.accent-text{background:linear-gradient(100deg,#2dd4bf,#22d3ee 35%,#7dd3fc 50%,#22d3ee 65%,#2dd4bf);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:sheen 6s ease-in-out infinite}
+@keyframes sheen{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+/* ============================ HERO ============================ */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:120px 0 80px}
+.hero-glow{position:absolute;width:500px;height:500px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(45,212,191,.16),transparent 60%);
+  left:var(--mx,50%);top:var(--my,40%);transform:translate(-50%,-50%);transition:.2s;z-index:0}
+.hero .wrap{position:relative;z-index:2}
+.badge{display:inline-flex;align-items:center;gap:9px;font-size:.84rem;color:var(--muted);
+  padding:8px 15px;border-radius:30px;margin-bottom:28px}
+.badge .live{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+.hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(2.6rem,7vw,5rem);line-height:1.04;letter-spacing:-.03em;margin-bottom:24px;max-width:14ch}
+.hero .lead{font-size:clamp(1.05rem,2.2vw,1.3rem);color:var(--muted);max-width:600px;margin-bottom:40px}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:.98rem;padding:15px 26px;border-radius:14px;cursor:pointer;transition:.25s;border:1px solid transparent}
+.btn-primary{background:var(--accent-grad);color:#06121a;box-shadow:0 12px 30px -10px rgba(45,212,191,.55)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px -12px rgba(45,212,191,.7)}
+.btn-ghost{background:var(--glass);border-color:var(--glass-border);color:var(--ink);backdrop-filter:blur(10px)}
+.btn-ghost:hover{background:var(--glass-strong);transform:translateY(-2px)}
+.hero-floaters{position:absolute;inset:0;z-index:1;pointer-events:none}
+.chip{position:absolute;font-family:var(--font-mono);font-size:.78rem;color:var(--muted);padding:9px 15px;border-radius:12px;white-space:nowrap;will-change:transform;opacity:.9}
+.chip.c1{top:14%;right:9%;animation:floatA 11s ease-in-out infinite}
+.chip.c2{top:32%;right:4%;animation:floatC 14s ease-in-out infinite;animation-delay:-3s}
+.chip.c3{top:9%;right:30%;animation:floatB 12s ease-in-out infinite;animation-delay:-6s}
+.chip.c4{top:44%;right:6%;animation:floatC 13s ease-in-out infinite;animation-delay:-2s}
+.chip.c5{top:60%;right:18%;animation:floatA 10s ease-in-out infinite;animation-delay:-4s}
+.chip.c6{top:74%;right:8%;animation:floatB 12.5s ease-in-out infinite;animation-delay:-1.5s}
+.chip.c7{top:87%;right:27%;animation:floatC 11.5s ease-in-out infinite;animation-delay:-5s}
+@keyframes floatA{0%,100%{transform:translate(0,0) rotate(-1.5deg)}33%{transform:translate(-13px,-20px) rotate(1.5deg)}66%{transform:translate(11px,-9px) rotate(-1deg)}}
+@keyframes floatB{0%,100%{transform:translate(0,0) rotate(1.5deg)}50%{transform:translate(16px,-24px) rotate(-2deg)}}
+@keyframes floatC{0%,100%{transform:translate(0,0) rotate(0deg)}25%{transform:translate(-11px,-12px) rotate(-1.5deg)}50%{transform:translate(9px,-22px) rotate(1deg)}75%{transform:translate(13px,-7px) rotate(-.5deg)}}
+
+/* ============================ O MNĚ ============================ */
+.about-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:36px;align-items:stretch}
+.about-card{padding:34px;display:flex;flex-direction:column;gap:20px}
+.avatar{width:100%;aspect-ratio:1/1;border-radius:16px;
+  background:linear-gradient(140deg,rgba(45,212,191,.25),rgba(99,102,241,.25));
+  display:flex;align-items:center;justify-content:center;border:1px solid var(--glass-border);position:relative;overflow:hidden}
+.avatar span{font-family:var(--font-mono);font-size:.8rem;color:var(--faint);text-align:center;padding:0 20px}
+.about-text{padding:34px;display:flex;flex-direction:column;justify-content:center;gap:18px}
+.about-text p{color:var(--muted)}
+.about-text strong{color:var(--ink);font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.stat{padding:18px;border-radius:14px;background:var(--glass);border:1px solid var(--line);text-align:center}
+.stat b{display:block;font-family:var(--font-display);font-size:1.9rem;font-weight:700;background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat small{color:var(--faint);font-size:.8rem}
+
+/* ============================ SLUŽBY ============================ */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.svc{padding:30px;transition:.3s;position:relative;overflow:hidden}
+.svc:hover{transform:translateY(-5px);border-top-color:var(--accent)}
+.svc .ic{width:50px;height:50px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;
+  background:rgba(45,212,191,.12);border:1px solid rgba(45,212,191,.25)}
+.svc .ic svg{width:24px;height:24px;stroke:var(--accent);fill:none;stroke-width:1.7}
+.svc h3{font-family:var(--font-display);font-size:1.2rem;font-weight:600;margin-bottom:10px}
+.svc p{color:var(--muted);font-size:.95rem}
+
+/* ============================ TECH STACK ============================ */
+.stack-wrap{padding:38px}
+.stack-group{margin-bottom:26px}
+.stack-group:last-child{margin-bottom:0}
+.stack-group h4{font-family:var(--font-mono);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+.tags{display:flex;flex-wrap:wrap;gap:10px}
+.tag{font-family:var(--font-mono);font-size:.88rem;color:var(--muted);padding:9px 16px;border-radius:11px;
+  background:var(--glass);border:1px solid var(--line);transition:.25s}
+.tag:hover{color:var(--ink);border-color:rgba(45,212,191,.4);background:rgba(45,212,191,.08)}
+
+/* ============================ PROJEKTY ============================ */
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.proj{overflow:hidden;transition:.3s;display:flex;flex-direction:column}
+.proj:hover{transform:translateY(-6px)}
+.proj-thumb{aspect-ratio:16/10;position:relative;overflow:hidden;border-bottom:1px solid var(--glass-border)}
+.proj-thumb .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:.78rem;color:rgba(255,255,255,.6);letter-spacing:.05em}
+.proj-thumb.g1{background:linear-gradient(135deg,#0f766e,#155e75)}
+.proj-thumb.g2{background:linear-gradient(135deg,#4338ca,#7e22ce)}
+.proj-thumb.g3{background:linear-gradient(135deg,#9d174d,#b45309)}
+.proj-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .55s ease}
+.proj:hover .proj-thumb img{transform:scale(1.06)}
+.proj-body{padding:24px;display:flex;flex-direction:column;gap:12px;flex:1}
+.proj-body h3{font-family:var(--font-display);font-size:1.25rem;font-weight:600}
+.proj-body p{color:var(--muted);font-size:.93rem;flex:1}
+.proj-tags{display:flex;flex-wrap:wrap;gap:7px}
+.proj-tags span{font-family:var(--font-mono);font-size:.74rem;color:var(--accent);padding:4px 10px;border-radius:7px;background:rgba(45,212,191,.1)}
+.proj-links{display:flex;gap:16px;margin-top:6px;font-size:.88rem;font-weight:600}
+.proj-links a{display:inline-flex;align-items:center;gap:6px;color:var(--accent);transition:.2s}
+.proj-links a:hover{gap:9px}
+
+/* ============================ KONTAKT ============================ */
+.contact{padding:56px;text-align:center;position:relative;overflow:hidden}
+.contact h2{font-family:var(--font-display);font-size:clamp(1.9rem,4.5vw,3rem);font-weight:700;letter-spacing:-.02em;margin-bottom:16px}
+.contact p{color:var(--muted);font-size:1.1rem;max-width:520px;margin:0 auto 36px}
+.contact-mail{font-family:var(--font-display);font-size:clamp(1.3rem,3.5vw,2rem);font-weight:600;display:inline-block;margin-bottom:34px;
+  background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;transition:.25s}
+.contact-mail:hover{filter:brightness(1.15)}
+.socials{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.social{display:inline-flex;align-items:center;gap:9px;padding:13px 22px;border-radius:13px;font-weight:500;font-size:.95rem;
+  background:var(--glass);border:1px solid var(--glass-border);transition:.25s}
+.social:hover{transform:translateY(-3px);border-color:rgba(45,212,191,.4);background:rgba(45,212,191,.08)}
+.social svg{width:18px;height:18px;fill:currentColor}
+
+/* ============================ PATIČKA ============================ */
+.footer{border-top:1px solid var(--line);margin-top:90px;padding:36px 0}
+.footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer small{color:var(--faint);font-size:.86rem}
+.to-top{font-size:.86rem;color:var(--muted);display:inline-flex;align-items:center;gap:8px;transition:.2s}
+.to-top:hover{color:var(--accent)}
+
+/* spacing sekcí */
+.section{padding:100px 0}
+
+/* ============================ REVEAL ANIM ============================ */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal[data-d="1"]{transition-delay:.08s}
+.reveal[data-d="2"]{transition-delay:.16s}
+.reveal[data-d="3"]{transition-delay:.24s}
+
+/* ============================ RESPONSIVE ============================ */
+@media(max-width:680px){
+  .chip{font-size:.72rem;padding:8px 12px}
+  .chip.c2,.chip.c3,.chip.c4{display:none}
+}
+@media(max-width:430px){
+  .chip.c7{display:none}
+}
+@media(max-height:560px){
+  .hero-floaters{display:none}
+}
+@media(max-width:860px){
+  .nav-links{position:fixed;top:74px;left:50%;transform:translateX(-50%);width:min(94%,var(--maxw));
+    flex-direction:column;align-items:stretch;gap:6px;padding:14px;
+    background:rgba(10,14,26,.85);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:16px;
+    opacity:0;pointer-events:none;transition:.3s;transform:translateX(-50%) translateY(-10px)}
+  .nav-links.open{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+  .nav-links a{padding:13px 16px}
+  .burger{display:flex}
+  .about-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .contact{padding:40px 24px}
+}
+@media(max-width:480px){
+  .stats{grid-template-columns:1fr}
+  .cta-row{flex-direction:column;align-items:stretch}
+  .btn{justify-content:center}
+}
+
+/* ============================ SPECIÁLNÍ EFEKTY ============================ */
+/* interaktivní bodová mřížka na pozadí */
+.dot-canvas{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:1}
+
+/* indikátor scrollu nahoře */
+.scroll-progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:60;
+  background:var(--accent-grad);box-shadow:0 0 14px rgba(45,212,191,.7)}
+
+/* spotlight glow sledující kurzor uvnitř karet */
+.glow-card{position:relative}
+.glow-card::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:0;
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(45,212,191,.16),transparent 62%);
+  opacity:0;transition:opacity .4s ease;pointer-events:none}
+.glow-card:hover::before{opacity:1}
+.glow-card>*{position:relative;z-index:1}
+
+/* 3D náklon projektových karet (řízeno JS) */
+.proj{transform-style:preserve-3d;will-change:transform}
+
+/* respektuj reduced-motion */
+@media(prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important}
+  .reveal{opacity:1;transform:none}
+  .dot-canvas,.scroll-progress{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- indikátor scrollu -->
+<div class="scroll-progress" id="progress"></div>
+
+<!-- POZADÍ -->
+<div class="bg-layer">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+</div>
+<canvas id="dots" class="dot-canvas"></canvas>
+<div class="noise"></div>
+
+<!-- NAVIGACE -->
+<nav class="nav" id="nav">
+  <!-- EDIT 1: jméno / iniciály -->
+  <a href="#" class="brand"><span class="dot"></span>Rostislav Jirák</a>
+  <div class="nav-links" id="navLinks">
+    <a href="#o-mne">O mně</a>
+    <a href="#sluzby">Co nabízím</a>
+    <a href="#stack">Tech stack</a>
+    <a href="#projekty">Projekty</a>
+    <a href="#kontakt" class="nav-cta">Spojit se</a>
+  </div>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-glow" id="heroGlow"></div>
+  <div class="hero-floaters">
+    <div class="chip glass c1">&lt;/&gt; clean code</div>
+    <div class="chip glass c2">{ web · mobile }</div>
+    <div class="chip glass c3">✦ design na míru</div>
+    <div class="chip glass c4">⚡ rychlé dodání</div>
+    <div class="chip glass c5">{ } React · Node</div>
+    <div class="chip glass c6">↗ nasazení</div>
+    <div class="chip glass c7">∞ škálovatelné</div>
+  </div>
+  <div class="wrap">
+    <div class="badge glass reveal"><span class="live"></span> Dostupný pro nové projekty</div>
+    <!-- EDIT 1 + EDIT 2 -->
+    <h1 class="reveal" data-d="1">Ahoj, jsem <span class="accent-text">Rostislav&nbsp;Jirák</span>.<br>Stavím digitální produkty.</h1>
+    <p class="lead reveal" data-d="2">Fullstack vývojář se zázemím v obchodě. Tvořím webové a mobilní aplikace i moderní weby — od první čáry kódu až po spokojeného klienta.</p>
+    <div class="cta-row reveal" data-d="3">
+      <a href="#kontakt" class="btn btn-primary">Pojďme spolupracovat →</a>
+      <a href="#projekty" class="btn btn-ghost">Moje práce</a>
+    </div>
+  </div>
+</header>
+
+<!-- O MNĚ -->
+<section class="section" id="o-mne">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">O mně</span>
+      <h2>Vývojář, který rozumí i&nbsp;<span class="accent-text">byznysu</span>.</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-card glass reveal">
+        <!-- EDIT 8: sem vlož svoji fotku — nahraď <span> značku <img src="assets/foto.jpg"> -->
+        <div class="avatar"><span>FOTKA<br>(nahraď v assets/foto.jpg)</span></div>
+        <div class="stats">
+          <!-- EDIT 4: doplň reálná čísla -->
+          <div class="stat"><b>5+</b><small>let praxe</small></div>
+          <div class="stat"><b>30+</b><small>projektů</small></div>
+          <div class="stat"><b>100%</b><small>nasazení</small></div>
+        </div>
+      </div>
+      <div class="about-text glass reveal" data-d="1">
+        <!-- EDIT 3: přepiš podle sebe -->
+        <p>Jsem <strong>fullstack vývojář</strong> zaměřený na webové a mobilní aplikace a moderní webové stránky. Baví mě převádět nápady do funkčních produktů — od návrhu přes kód až po nasazení.</p>
+        <p>Díky zkušenostem z pozice <strong>obchodního zástupce</strong> nekoukám na projekt jen technicky. Rozumím tomu, co potřebuje klient i jeho zákazník, a umím to spojit dohromady. To je rozdíl mezi „kódem, který funguje" a „produktem, který prodává".</p>
+        <p>Hledám zajímavé zakázky i dlouhodobou spolupráci. Pokud máš nápad, pojďme ho rozjet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLUŽBY -->
+<section class="section" id="sluzby">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Co nabízím</span>
+      <h2>Služby na míru</h2>
+      <p>Od jednostránkového webu po komplexní aplikaci — vždy s důrazem na detail a výsledek.</p>
+    </div>
+    <div class="services-grid">
+      <div class="svc glass reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8"/></svg></div>
+        <h3>Webové aplikace</h3>
+        <p>Výkonné aplikace na míru — od dashboardů po SaaS. React, moderní backend, čistá architektura.</p>
+      </div>
+      <div class="svc glass reveal" data-d="1">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg></div>
+        <h3>Mobilní aplikace</h3>
+        <p>Nativní pocit na iOS i Androidu z jedné codebase. Rychlé, plynulé a připravené pro App Store.</p>
+      </div>
+      <div class="svc glass reveal" data-d="2">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+        <h3>Webové stránky</h3>
+        <p>Prezentace, portfolia, landing pages. Rychlé, responzivní a navržené tak, aby konvertovaly.</p>
+      </div>
+      <div class="svc glass reveal" data-d="3">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v5h-5"/></svg></div>
+        <h3>Konzultace</h3>
+        <p>Technické i obchodní poradenství. Pomohu rozhodnout, co stavět, jak a proč to dává smysl.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="section" id="stack">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Tech stack</span>
+      <h2>Nástroje, se kterými pracuji</h2>
+    </div>
+    <!-- EDIT 5: uprav technologie podle reality -->
+    <div class="stack-wrap glass reveal">
+      <div class="stack-group">
+        <h4>Frontend</h4>
+        <div class="tags">
+          <span class="tag">React</span><span class="tag">Next.js</span><span class="tag">TypeScript</span>
+          <span class="tag">Flutter</span><span class="tag">Tailwind CSS</span><span class="tag">HTML / CSS</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <h4>Backend</h4>
+        <div class="tags">
+          <span class="tag">Node.js</span><span class="tag">Spring Boot</span><span class="tag">PostgreSQL</span>
+          <span class="tag">Supabase</span><span class="tag">REST API</span><span class="tag">Python</span>
+        </div>
+      </div>
+      <div class="stack-group">
+        <h4>Nástroje &amp; Infra</h4>
+        <div class="tags">
+          <span class="tag">Git</span><span class="tag">Docker</span><span class="tag">CI/CD</span>
+          <span class="tag">Render</span><span class="tag">Figma</span><span class="tag">Vercel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJEKTY -->
+<section class="section" id="projekty">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">Projekty</span>
+      <h2>Vybraná práce</h2>
+      <p>Vybrané weby a aplikace, na kterých jsem pracoval — od konfigurátoru s e-shopem po firemní prezentace.</p>
+    </div>
+    <div class="proj-grid">
+      <article class="proj glass reveal">
+        <div class="proj-thumb g1"><img src="assets/proj-stringart.jpg" alt="StringIt — String Art generátor" loading="lazy" /></div>
+        <div class="proj-body">
+          <h3>StringIt — String Art generátor</h3>
+          <p>Webová aplikace, která z fotky vytvoří návrh kruhového portrétu z jediné nitě. Interaktivní konfigurátor, náhled v reálném čase a e-shop s platbou a objednávkami.</p>
+          <div class="proj-tags"><span>JavaScript</span><span>Canvas API</span><span>Supabase</span><span>Stripe</span></div>
+          <div class="proj-links"><a href="https://string-art-delta.vercel.app/" target="_blank" rel="noopener">Otevřít web ↗</a></div>
+        </div>
+      </article>
+      <article class="proj glass reveal" data-d="1">
+        <div class="proj-thumb g2"><img src="assets/proj-garance.jpg" alt="GARANCE Plzeň — web stavební firmy" loading="lazy" /></div>
+        <div class="proj-body">
+          <h3>GARANCE Plzeň</h3>
+          <p>Prezentační web pro stavební firmu specializovanou na střechy a izolace (působí od roku 1992). Důraz na realizace, certifikace a snadnou poptávku.</p>
+          <div class="proj-tags"><span>Webová prezentace</span><span>Responzivní</span><span>SEO</span></div>
+          <div class="proj-links"><a href="https://www.garanceplzen.cz/" target="_blank" rel="noopener">Otevřít web ↗</a></div>
+        </div>
+      </article>
+      <article class="proj glass reveal" data-d="2">
+        <div class="proj-thumb g3"><img src="assets/proj-rootklima.jpg" alt="Root Klima — web firmy na klimatizace" loading="lazy" /></div>
+        <div class="proj-body">
+          <h3>Root Klima</h3>
+          <p>Web pro pražskou firmu instalující klimatizace a tepelná čerpadla. Portfolio realizací, kontaktní formulář a důraz na konverzi poptávek.</p>
+          <div class="proj-tags"><span>Webová prezentace</span><span>Kontaktní formulář</span><span>Responzivní</span></div>
+          <div class="proj-links"><a href="https://rootklima.cz/" target="_blank" rel="noopener">Otevřít web ↗</a></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="section" id="kontakt">
+  <div class="wrap">
+    <div class="contact glass reveal">
+      <span class="kicker" style="justify-content:center">Kontakt</span>
+      <h2>Pojďme spolu něco postavit</h2>
+      <p>Máš nápad, projekt nebo nabídku? Ozvi se — odpovídám rychle.</p>
+      <!-- EDIT 7: doplň reálné kontakty -->
+      <a href="mailto:rjirak.jr@gmail.com" class="contact-mail">rjirak.jr@gmail.com</a>
+      <div class="socials">
+        <a href="tel:+420731753765" class="social"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.3 1l-2.2 2.3z"/></svg>+420 731 753 765</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener" class="social"><svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM8.3 18H5.7V9.7h2.6V18zM7 8.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM18.3 18h-2.6v-4c0-1-.4-1.6-1.3-1.6-.7 0-1.1.5-1.3 1-.1.2-.1.5-.1.7V18h-2.6V9.7h2.6v1.1c.3-.5 1-1.3 2.4-1.3 1.7 0 3 1.1 3 3.6V18z"/></svg>LinkedIn</a>
+        <a href="https://github.com" target="_blank" rel="noopener" class="social"><svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.6 2 12.2c0 4.5 2.9 8.3 6.8 9.6.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.4-3.4-1.4-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 5 0c1.9-1.3 2.7-1 2.7-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.4 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5 3.9-1.3 6.8-5.1 6.8-9.6C22 6.6 17.5 2 12 2z"/></svg>GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PATIČKA -->
+<footer class="footer">
+  <div class="wrap">
+    <small>© <span id="year"></span> Ing. Rostislav Jirák · IČO: 19775989 · Vytvořeno s ❤️ a čistým kódem</small>
+    <a href="#" class="to-top">Nahoru ↑</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouch = matchMedia('(hover: none)').matches;
+
+  // rok
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // nav scrolled + scroll progress
+  const nav = document.getElementById('nav');
+  const progress = document.getElementById('progress');
+  function onScroll(){
+    nav.classList.toggle('scrolled', scrollY > 30);
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - doc.clientHeight;
+    progress.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+  }
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // burger menu
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // scroll reveal + spuštění počítadel
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); startCounters(e.target); io.unobserve(e.target);} });
+  }, {threshold:.14});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // hero glow sleduje kurzor
+  const glow = document.getElementById('heroGlow');
+  const hero = document.querySelector('.hero');
+  if(!isTouch){
+    hero.addEventListener('pointermove', (e) => {
+      const r = hero.getBoundingClientRect();
+      glow.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      glow.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  }
+
+  // spotlight glow na kartách
+  document.querySelectorAll('.svc, .proj, .about-card, .about-text, .stack-wrap, .contact').forEach(card => {
+    card.classList.add('glow-card');
+    if(isTouch) return;
+    card.addEventListener('pointermove', (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+
+  // 3D náklon projektových karet
+  if(!isTouch && !reduceMotion){
+    document.querySelectorAll('.proj').forEach(card => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - .5;
+        const py = (e.clientY - r.top) / r.height - .5;
+        card.style.transform = 'perspective(900px) rotateX(' + (-py*6).toFixed(2) + 'deg) rotateY(' + (px*6).toFixed(2) + 'deg) translateY(-6px)';
+      });
+      card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+    });
+  }
+
+  // magnetická tlačítka
+  if(!isTouch && !reduceMotion){
+    document.querySelectorAll('.btn-primary, .nav-cta').forEach(btn => {
+      btn.addEventListener('pointermove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width/2) * .3;
+        const y = (e.clientY - r.top - r.height/2) * .3;
+        btn.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
+      });
+      btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
+    });
+  }
+
+  // počítadla statistik
+  function startCounters(scope){
+    if(!scope.querySelectorAll) return;
+    scope.querySelectorAll('.stat b').forEach(el => {
+      if(el.dataset.done) return; el.dataset.done = '1';
+      const m = el.textContent.trim().match(/^(\d+)(.*)$/);
+      if(!m || reduceMotion) return;
+      const target = +m[1], suffix = m[2], dur = 1300, t0 = performance.now();
+      (function tick(t){
+        const p = Math.min((t - t0)/dur, 1), eased = 1 - Math.pow(1-p, 3);
+        el.textContent = Math.round(target*eased) + suffix;
+        if(p < 1) requestAnimationFrame(tick);
+      })(t0);
+    });
+  }
+
+  // scramble / decode hero jména
+  (function(){
+    const el = document.querySelector('.hero h1 .accent-text');
+    if(!el || reduceMotion) return;
+    const target = el.textContent;
+    const pool = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&{}<>/*';
+    const plan = target.split('').map((ch,i)=>({ch, at: i*2.2 + Math.random()*6}));
+    let frame = 0;
+    (function render(){
+      let out = '', done = 0;
+      plan.forEach(p => {
+        if(p.ch === ' ' || p.ch === ' '){ out += p.ch; done++; }
+        else if(frame >= p.at){ out += p.ch; done++; }
+        else out += pool[(Math.random()*pool.length)|0];
+      });
+      el.textContent = out; frame++;
+      if(done < plan.length) requestAnimationFrame(render);
+      else el.textContent = target;
+    })();
+  })();
+
+  // interaktivní bodová mřížka na pozadí
+  (function(){
+    const canvas = document.getElementById('dots');
+    if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, dots = [], idleT = 0;
+    const gap = 42, R = 150;
+    const mouse = { x: -9999, y: -9999, active: false };
+
+    function build(){
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      w = innerWidth; h = innerHeight;
+      canvas.width = w*dpr; canvas.height = h*dpr;
+      canvas.style.width = w+'px'; canvas.style.height = h+'px';
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      dots = [];
+      const cols = Math.ceil(w/gap)+1, rows = Math.ceil(h/gap)+1;
+      for(let y=0;y<rows;y++) for(let x=0;x<cols;x++) dots.push({ox:x*gap, oy:y*gap});
+    }
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      let mx = mouse.x, my = mouse.y;
+      if(!mouse.active){ idleT += 0.005; mx = w*.5 + Math.cos(idleT)*w*.32; my = h*.45 + Math.sin(idleT*1.3)*h*.30; }
+      // základní tlumené body — jeden fill
+      ctx.fillStyle = 'rgba(110,225,215,0.22)';
+      ctx.beginPath();
+      for(const d of dots){ ctx.moveTo(d.ox+1.2, d.oy); ctx.arc(d.ox, d.oy, 1.2, 0, 6.2832); }
+      ctx.fill();
+      // zvýraznění blízko kurzoru
+      for(const d of dots){
+        const dx = d.ox-mx, dy = d.oy-my, dist = Math.hypot(dx,dy);
+        if(dist >= R) continue;
+        const f = 1 - dist/R, push = f*12;
+        const px = d.ox + (dx/dist||0)*push, py = d.oy + (dy/dist||0)*push;
+        ctx.beginPath();
+        ctx.arc(px, py, 1.2 + f*2.8, 0, 6.2832);
+        ctx.fillStyle = 'rgba(125,240,230,' + (0.25 + f*0.65).toFixed(3) + ')';
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    build();
+    if(reduceMotion){
+      ctx.fillStyle = 'rgba(90,220,210,0.12)';
+      ctx.beginPath();
+      for(const d of dots){ ctx.moveTo(d.ox+1,d.oy); ctx.arc(d.ox,d.oy,1,0,6.2832); }
+      ctx.fill();
+      return;
+    }
+    addEventListener('pointermove', e => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true; });
+    document.addEventListener('mouseleave', () => { mouse.active = false; });
+    let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(build, 150); });
+    requestAnimationFrame(draw);
+  })();
+})();
+</script>
+</body>
+</html>
