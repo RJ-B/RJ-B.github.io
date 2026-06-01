@@ -209,8 +209,8 @@ section{scroll-margin-top:90px}
 .proj-tags{display:flex;flex-wrap:wrap;gap:7px}
 .proj-tags span{font-family:var(--font-mono);font-size:.74rem;color:var(--accent);padding:4px 10px;border-radius:7px;background:rgba(45,212,191,.1)}
 .proj-links{display:flex;gap:16px;margin-top:6px;font-size:.88rem;font-weight:600}
-.proj-links a{display:inline-flex;align-items:center;gap:6px;color:var(--accent);transition:.2s}
-.proj-links a:hover{gap:9px}
+.proj-links span{display:inline-flex;align-items:center;gap:6px;color:var(--accent);transition:gap .2s}
+.proj:hover .proj-links span{gap:9px}
 
 /* ============================ KONTAKT ============================ */
 .contact{padding:56px;text-align:center;position:relative;overflow:hidden}
@@ -449,33 +449,33 @@ section{scroll-margin-top:90px}
       <p>Vybrané weby a aplikace, na kterých jsem pracoval — od konfigurátoru s e-shopem po firemní prezentace.</p>
     </div>
     <div class="proj-grid">
-      <article class="proj glass reveal">
+      <a class="proj glass reveal" href="https://string-art-delta.vercel.app/" target="_blank" rel="noopener">
         <div class="proj-thumb g1"><img src="assets/proj-stringart.jpg" alt="StringIt — String Art generátor" loading="lazy" /></div>
         <div class="proj-body">
           <h3>StringIt — String Art generátor</h3>
           <p>Webová aplikace, která z fotky vytvoří návrh kruhového portrétu z jediné nitě. Interaktivní konfigurátor, náhled v reálném čase a e-shop s platbou a objednávkami.</p>
           <div class="proj-tags"><span>JavaScript</span><span>Canvas API</span><span>Supabase</span><span>Stripe</span></div>
-          <div class="proj-links"><a href="https://string-art-delta.vercel.app/" target="_blank" rel="noopener">Otevřít web ↗</a></div>
+          <div class="proj-links"><span>Otevřít web ↗</span></div>
         </div>
-      </article>
-      <article class="proj glass reveal" data-d="1">
+      </a>
+      <a class="proj glass reveal" data-d="1" href="https://www.garanceplzen.cz/" target="_blank" rel="noopener">
         <div class="proj-thumb g2"><img src="assets/proj-garance.jpg" alt="GARANCE Plzeň — web stavební firmy" loading="lazy" /></div>
         <div class="proj-body">
           <h3>GARANCE Plzeň</h3>
           <p>Prezentační web pro stavební firmu specializovanou na střechy a izolace (působí od roku 1992). Důraz na realizace, certifikace a snadnou poptávku.</p>
           <div class="proj-tags"><span>Webová prezentace</span><span>Responzivní</span><span>SEO</span></div>
-          <div class="proj-links"><a href="https://www.garanceplzen.cz/" target="_blank" rel="noopener">Otevřít web ↗</a></div>
+          <div class="proj-links"><span>Otevřít web ↗</span></div>
         </div>
-      </article>
-      <article class="proj glass reveal" data-d="2">
+      </a>
+      <a class="proj glass reveal" data-d="2" href="https://rootklima.cz/" target="_blank" rel="noopener">
         <div class="proj-thumb g3"><img src="assets/proj-rootklima.jpg" alt="Root Klima — web firmy na klimatizace" loading="lazy" /></div>
         <div class="proj-body">
           <h3>Root Klima</h3>
           <p>Web pro pražskou firmu instalující klimatizace a tepelná čerpadla. Portfolio realizací, kontaktní formulář a důraz na konverzi poptávek.</p>
           <div class="proj-tags"><span>Webová prezentace</span><span>Kontaktní formulář</span><span>Responzivní</span></div>
-          <div class="proj-links"><a href="https://rootklima.cz/" target="_blank" rel="noopener">Otevřít web ↗</a></div>
+          <div class="proj-links"><span>Otevřít web ↗</span></div>
         </div>
-      </article>
+      </a>
     </div>
   </div>
 </section>
