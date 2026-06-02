@@ -81,7 +81,7 @@
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}
 body{
   font-family:var(--font-body);
   background:var(--bg);
@@ -147,14 +147,14 @@ section{scroll-margin-top:90px}
   color:var(--accent);display:inline-flex;align-items:center;gap:9px;margin-bottom:18px}
 .kicker::before{content:"";width:26px;height:1px;background:var(--accent)}
 .h-title{font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;line-height:1.08}
-.section-head{max-width:640px;margin-bottom:54px}
+.section-head{max-width:640px;margin-bottom:26px}
 .section-head h2{font-family:var(--font-display);font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;letter-spacing:-.02em;margin-bottom:14px}
 .section-head p{color:var(--muted);font-size:1.05rem}
 .accent-text{background:linear-gradient(100deg,#2dd4bf,#22d3ee 35%,#7dd3fc 50%,#22d3ee 65%,#2dd4bf);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:sheen 6s ease-in-out infinite}
 @keyframes sheen{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
 /* ============================ HERO (spojeno s „O mně") ============================ */
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:128px 0 72px}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:128px 0 72px;overflow:hidden}
 .hero-glow{position:absolute;width:500px;height:500px;border-radius:50%;pointer-events:none;
   background:radial-gradient(circle,rgba(45,212,191,.16),transparent 60%);
   left:var(--mx,50%);top:var(--my,40%);transform:translate(-50%,-50%);transition:.2s;z-index:0}
@@ -212,14 +212,14 @@ section{scroll-margin-top:90px}
 .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
 .proj{overflow:hidden;transition:.3s;display:flex;flex-direction:column}
 .proj:hover{transform:translateY(-6px)}
-.proj-thumb{aspect-ratio:16/10;position:relative;overflow:hidden;border-bottom:1px solid var(--glass-border)}
+.proj-thumb{aspect-ratio:16/9;position:relative;overflow:hidden;border-bottom:1px solid var(--glass-border)}
 .proj-thumb .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   font-family:var(--font-mono);font-size:.78rem;color:rgba(255,255,255,.6);letter-spacing:.05em}
 .proj-thumb.g1{background:linear-gradient(135deg,#0f766e,#155e75)}
 .proj-thumb.g2{background:linear-gradient(135deg,#4338ca,#7e22ce)}
 .proj-thumb.g3{background:linear-gradient(135deg,#9d174d,#b45309)}
 .proj-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center}
-.proj-body{padding:24px;display:flex;flex-direction:column;gap:12px;flex:1}
+.proj-body{padding:20px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
 .proj-body h3{font-family:var(--font-display);font-size:1.25rem;font-weight:600}
 .proj-body p{color:var(--muted);font-size:.93rem;flex:1}
 .proj-tags{display:flex;flex-wrap:wrap;gap:7px}
@@ -257,7 +257,7 @@ section{scroll-margin-top:90px}
 .to-top:hover{color:var(--accent)}
 
 /* spacing sekcí */
-.section{padding:100px 0}
+.section{padding:84px 0}
 
 /* ============================ REVEAL ANIM ============================ */
 .reveal{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
@@ -282,13 +282,21 @@ section{scroll-margin-top:90px}
   .contact{padding:40px 24px}
 }
 @media(max-width:680px){
-  .hero-photo .chip{font-size:.7rem;padding:7px 11px}
-  .chip.c2,.chip.c4{display:none}
+  /* bubliny kolem fotky na malých telefonech úplně skryjeme */
+  .hero-photo .chip{display:none}
 }
 @media(max-width:480px){
   .cta-row{flex-direction:column;align-items:stretch}
   .btn{justify-content:center}
-  .hero-stats{gap:24px}
+  .hero-stats{gap:20px}
+  .hero h1{font-size:clamp(2rem,9vw,2.8rem)}
+  .contact h2{font-size:clamp(1.5rem,7vw,2.2rem)}
+  .section-head h2{font-size:clamp(1.5rem,7vw,2.2rem)}
+}
+@media(max-width:380px){
+  .hero-stats .stat b{font-size:1.5rem}
+  .hero-stats{gap:16px}
+  .badge{font-size:.78rem}
 }
 
 /* ============================ SPECIÁLNÍ EFEKTY ============================ */
@@ -527,7 +535,9 @@ section{scroll-margin-top:90px}
       if (href !== '#') {
         const target = document.querySelector(href);
         if (!target) return;
-        top = target.getBoundingClientRect().top + window.scrollY - 84;
+        // doskoč na OBSAH sekce (za horní padding), nadpis hned pod menu — ukáže víc karet
+        const padTop = parseFloat(getComputedStyle(target).paddingTop) || 0;
+        top = target.getBoundingClientRect().top + window.scrollY + padTop - 90;
       }
       smoothScrollTo(top);
       history.replaceState(null, '', location.pathname + location.search);
