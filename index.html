@@ -532,16 +532,20 @@ section{scroll-margin-top:90px}
     });
   });
 
-  // 3D náklon projektových karet
+  // 3D náklon projektových karet (vlastní rychlá transition, ať není líný)
   if(!isTouch && !reduceMotion){
     document.querySelectorAll('.proj').forEach(card => {
       card.addEventListener('pointermove', (e) => {
         const r = card.getBoundingClientRect();
         const px = (e.clientX - r.left) / r.width - .5;
         const py = (e.clientY - r.top) / r.height - .5;
-        card.style.transform = 'perspective(900px) rotateX(' + (-py*6).toFixed(2) + 'deg) rotateY(' + (px*6).toFixed(2) + 'deg) translateY(-6px)';
+        card.style.transition = 'transform .08s linear';
+        card.style.transform = 'perspective(900px) rotateX(' + (-py*7).toFixed(2) + 'deg) rotateY(' + (px*7).toFixed(2) + 'deg) translateY(-6px)';
       });
-      card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+      card.addEventListener('pointerleave', () => {
+        card.style.transition = 'transform .4s ease';
+        card.style.transform = '';
+      });
     });
   }
 
