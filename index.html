@@ -183,7 +183,7 @@ section{scroll-margin-top:90px}
 .avatar{width:100%;aspect-ratio:4/5;border-radius:18px;
   background:linear-gradient(140deg,rgba(45,212,191,.25),rgba(99,102,241,.25));
   display:flex;align-items:center;justify-content:center;border:1px solid var(--glass-border);position:relative;overflow:hidden}
-.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar img{width:100%;height:100%;object-fit:cover;object-position:center top}
 .avatar span{font-family:var(--font-mono);font-size:.8rem;color:var(--faint);text-align:center;padding:0 20px}
 
 /* plovoucí bubliny kolem fotky */
@@ -359,8 +359,7 @@ section{scroll-margin-top:90px}
     </div>
     <div class="hero-photo reveal" data-d="2">
       <div class="photo-frame glass">
-        <!-- EDIT: vlož fotku — nahraď <span> značkou <img src="assets/foto.jpg" alt="Rostislav Jirák"> -->
-        <div class="avatar"><span>TVOJE FOTKA<br>(nahraď v assets/foto.jpg)</span></div>
+        <div class="avatar"><img src="assets/foto.jpg" alt="Ing. Rostislav Jirák" /></div>
       </div>
       <div class="chip glass c1">&lt;/&gt; clean code</div>
       <div class="chip glass c2">{ web · mobile }</div>
@@ -472,7 +471,7 @@ section{scroll-margin-top:90px}
 <!-- PATIČKA -->
 <footer class="footer">
   <div class="wrap">
-    <small>© <span id="year"></span> Ing. Rostislav Jirák · IČO: 19775989 · Vytvořeno s ❤️ a čistým kódem</small>
+    <small>© <span id="year"></span> Ing. Rostislav Jirák · IČO: 19775989</small>
     <a href="#" class="to-top">Nahoru ↑</a>
   </div>
 </footer>
@@ -577,19 +576,6 @@ section{scroll-margin-top:90px}
         card.style.transition = 'transform .4s ease';
         card.style.transform = '';
       });
-    });
-  }
-
-  // magnetická tlačítka
-  if(!isTouch && !reduceMotion){
-    document.querySelectorAll('.btn-primary, .nav-cta').forEach(btn => {
-      btn.addEventListener('pointermove', (e) => {
-        const r = btn.getBoundingClientRect();
-        const x = (e.clientX - r.left - r.width/2) * .3;
-        const y = (e.clientY - r.top - r.height/2) * .3;
-        btn.style.transform = 'translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px)';
-      });
-      btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
     });
   }
 
