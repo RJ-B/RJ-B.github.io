@@ -486,6 +486,24 @@ section{scroll-margin-top:90px}
   burger.addEventListener('click', () => navLinks.classList.toggle('open'));
   navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
 
+  // plynulý scroll na sekce — bez #hashe v URL
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const href = a.getAttribute('href');
+      if (!href || href.charAt(0) !== '#') return;
+      e.preventDefault();
+      navLinks.classList.remove('open');
+      let top = 0;
+      if (href !== '#') {
+        const target = document.querySelector(href);
+        if (!target) return;
+        top = target.getBoundingClientRect().top + window.scrollY - 84;
+      }
+      window.scrollTo({ top, behavior: 'smooth' });
+      history.replaceState(null, '', location.pathname + location.search);
+    });
+  });
+
   // scroll reveal + spuštění počítadel
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); startCounters(e.target); io.unobserve(e.target);} });
