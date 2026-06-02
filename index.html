@@ -126,51 +126,50 @@ section{scroll-margin-top:90px}
 .accent-text{background:linear-gradient(100deg,#2dd4bf,#22d3ee 35%,#7dd3fc 50%,#22d3ee 65%,#2dd4bf);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;animation:sheen 6s ease-in-out infinite}
 @keyframes sheen{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
-/* ============================ HERO ============================ */
-.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:120px 0 80px}
+/* ============================ HERO (spojeno s „O mně") ============================ */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:128px 0 72px}
 .hero-glow{position:absolute;width:500px;height:500px;border-radius:50%;pointer-events:none;
   background:radial-gradient(circle,rgba(45,212,191,.16),transparent 60%);
   left:var(--mx,50%);top:var(--my,40%);transform:translate(-50%,-50%);transition:.2s;z-index:0}
-.hero .wrap{position:relative;z-index:2}
+.hero-wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .9fr;gap:56px;align-items:center}
+.hero-text{min-width:0}
 .badge{display:inline-flex;align-items:center;gap:9px;font-size:.84rem;color:var(--muted);
-  padding:8px 15px;border-radius:30px;margin-bottom:28px}
+  padding:8px 15px;border-radius:30px;margin-bottom:22px}
 .badge .live{width:8px;height:8px;border-radius:50%;background:#34d399;box-shadow:0 0 0 0 rgba(52,211,153,.6);animation:pulse 2s infinite}
 @keyframes pulse{70%{box-shadow:0 0 0 9px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
-.hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(2.6rem,7vw,5rem);line-height:1.04;letter-spacing:-.03em;margin-bottom:24px;max-width:14ch}
-.hero .lead{font-size:clamp(1.05rem,2.2vw,1.3rem);color:var(--muted);max-width:600px;margin-bottom:40px}
+.hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(2.1rem,4.4vw,3.6rem);line-height:1.08;letter-spacing:-.02em;margin-bottom:20px}
+.hero .lead{font-size:clamp(1.02rem,1.6vw,1.18rem);color:var(--muted);max-width:540px;margin-bottom:34px}
 .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
 .btn{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:.98rem;padding:15px 26px;border-radius:14px;cursor:pointer;transition:.25s;border:1px solid transparent}
 .btn-primary{background:var(--accent-grad);color:#06121a;box-shadow:0 12px 30px -10px rgba(45,212,191,.55)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px -12px rgba(45,212,191,.7)}
 .btn-ghost{background:var(--glass);border-color:var(--glass-border);color:var(--ink);backdrop-filter:blur(10px)}
 .btn-ghost:hover{background:var(--glass-strong);transform:translateY(-2px)}
-.hero-floaters{position:absolute;inset:0;z-index:1;pointer-events:none}
-.chip{position:absolute;font-family:var(--font-mono);font-size:.78rem;color:var(--muted);padding:9px 15px;border-radius:12px;white-space:nowrap;will-change:transform;opacity:.9}
-.chip.c1{top:14%;right:9%;animation:floatA 11s ease-in-out infinite}
-.chip.c2{top:32%;right:4%;animation:floatC 14s ease-in-out infinite;animation-delay:-3s}
-.chip.c3{top:9%;right:30%;animation:floatB 12s ease-in-out infinite;animation-delay:-6s}
-.chip.c4{top:44%;right:6%;animation:floatC 13s ease-in-out infinite;animation-delay:-2s}
-.chip.c5{top:60%;right:18%;animation:floatA 10s ease-in-out infinite;animation-delay:-4s}
-.chip.c6{top:74%;right:8%;animation:floatB 12.5s ease-in-out infinite;animation-delay:-1.5s}
-.chip.c7{top:87%;right:27%;animation:floatC 11.5s ease-in-out infinite;animation-delay:-5s}
-@keyframes floatA{0%,100%{transform:translate(0,0) rotate(-1.5deg)}33%{transform:translate(-13px,-20px) rotate(1.5deg)}66%{transform:translate(11px,-9px) rotate(-1deg)}}
-@keyframes floatB{0%,100%{transform:translate(0,0) rotate(1.5deg)}50%{transform:translate(16px,-24px) rotate(-2deg)}}
-@keyframes floatC{0%,100%{transform:translate(0,0) rotate(0deg)}25%{transform:translate(-11px,-12px) rotate(-1.5deg)}50%{transform:translate(9px,-22px) rotate(1deg)}75%{transform:translate(13px,-7px) rotate(-.5deg)}}
+.hero-stats{display:flex;gap:34px;margin-top:36px;flex-wrap:wrap}
+.hero-stats .stat b{display:block;font-family:var(--font-display);font-size:1.8rem;font-weight:700;line-height:1;
+  background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-stats .stat small{color:var(--faint);font-size:.82rem}
 
-/* ============================ O MNĚ ============================ */
-.about-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:36px;align-items:stretch}
-.about-card{padding:34px;display:flex;flex-direction:column;gap:20px}
-.avatar{width:100%;aspect-ratio:1/1;border-radius:16px;
+/* foto v hero */
+.hero-photo{position:relative;justify-self:center;width:100%;max-width:360px}
+.photo-frame{padding:12px;border-radius:28px;position:relative}
+.avatar{width:100%;aspect-ratio:4/5;border-radius:18px;
   background:linear-gradient(140deg,rgba(45,212,191,.25),rgba(99,102,241,.25));
   display:flex;align-items:center;justify-content:center;border:1px solid var(--glass-border);position:relative;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
 .avatar span{font-family:var(--font-mono);font-size:.8rem;color:var(--faint);text-align:center;padding:0 20px}
-.about-text{padding:34px;display:flex;flex-direction:column;justify-content:center;gap:18px}
-.about-text p{color:var(--muted)}
-.about-text strong{color:var(--ink);font-weight:600}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
-.stat{padding:18px;border-radius:14px;background:var(--glass);border:1px solid var(--line);text-align:center}
-.stat b{display:block;font-family:var(--font-display);font-size:1.9rem;font-weight:700;background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.stat small{color:var(--faint);font-size:.8rem}
+
+/* plovoucí bubliny kolem fotky */
+.hero-photo .chip{position:absolute;font-family:var(--font-mono);font-size:.76rem;color:var(--muted);padding:9px 14px;border-radius:12px;white-space:nowrap;will-change:transform;z-index:3}
+.chip.c1{top:-16px;left:-32px;animation:floatA 11s ease-in-out infinite}
+.chip.c2{top:34%;right:-38px;animation:floatC 14s ease-in-out infinite;animation-delay:-3s}
+.chip.c3{bottom:7%;left:-38px;animation:floatB 12s ease-in-out infinite;animation-delay:-6s}
+.chip.c4{bottom:-14px;right:6%;animation:floatC 13s ease-in-out infinite;animation-delay:-2s}
+@keyframes floatA{0%,100%{transform:translate(0,0) rotate(-1.5deg)}33%{transform:translate(-9px,-15px) rotate(1.5deg)}66%{transform:translate(8px,-7px) rotate(-1deg)}}
+@keyframes floatB{0%,100%{transform:translate(0,0) rotate(1.5deg)}50%{transform:translate(11px,-17px) rotate(-2deg)}}
+@keyframes floatC{0%,100%{transform:translate(0,0) rotate(0deg)}25%{transform:translate(-8px,-9px) rotate(-1.5deg)}50%{transform:translate(7px,-15px) rotate(1deg)}75%{transform:translate(9px,-5px) rotate(-.5deg)}}
+
+/* „O mně" je sloučeno do hero sekce výše. */
 
 /* ============================ SLUŽBY ============================ */
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
@@ -243,15 +242,9 @@ section{scroll-margin-top:90px}
 .reveal[data-d="3"]{transition-delay:.24s}
 
 /* ============================ RESPONSIVE ============================ */
-@media(max-width:680px){
-  .chip{font-size:.72rem;padding:8px 12px}
-  .chip.c2,.chip.c3,.chip.c4{display:none}
-}
-@media(max-width:430px){
-  .chip.c7{display:none}
-}
-@media(max-height:560px){
-  .hero-floaters{display:none}
+@media(max-width:960px){
+  .hero-wrap{grid-template-columns:1fr;gap:40px}
+  .hero-photo{max-width:300px;margin:0 auto}
 }
 @media(max-width:860px){
   .nav-links{position:fixed;top:74px;left:50%;transform:translateX(-50%);width:min(94%,var(--maxw));
@@ -261,14 +254,16 @@ section{scroll-margin-top:90px}
   .nav-links.open{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)}
   .nav-links a{padding:13px 16px}
   .burger{display:flex}
-  .about-grid{grid-template-columns:1fr}
-  .stats{grid-template-columns:repeat(3,1fr)}
   .contact{padding:40px 24px}
 }
+@media(max-width:680px){
+  .hero-photo .chip{font-size:.7rem;padding:7px 11px}
+  .chip.c2,.chip.c4{display:none}
+}
 @media(max-width:480px){
-  .stats{grid-template-columns:1fr}
   .cta-row{flex-direction:column;align-items:stretch}
   .btn{justify-content:center}
+  .hero-stats{gap:24px}
 }
 
 /* ============================ SPECIÁLNÍ EFEKTY ============================ */
@@ -312,7 +307,6 @@ section{scroll-margin-top:90px}
   <!-- EDIT 1: jméno / iniciály -->
   <a href="#" class="brand"><span class="dot"></span>Rostislav Jirák</a>
   <div class="nav-links" id="navLinks">
-    <a href="#o-mne">O mně</a>
     <a href="#sluzby">Co nabízím</a>
     <a href="#stack">Tech stack</a>
     <a href="#projekty">Projekty</a>
@@ -321,57 +315,37 @@ section{scroll-margin-top:90px}
   <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- HERO -->
+<!-- HERO (spojeno s „O mně") -->
 <header class="hero">
   <div class="hero-glow" id="heroGlow"></div>
-  <div class="hero-floaters">
-    <div class="chip glass c1">&lt;/&gt; clean code</div>
-    <div class="chip glass c2">{ web · mobile }</div>
-    <div class="chip glass c3">✦ design na míru</div>
-    <div class="chip glass c4">⚡ rychlé dodání</div>
-    <div class="chip glass c5">{ } React · Node</div>
-    <div class="chip glass c6">↗ nasazení</div>
-    <div class="chip glass c7">∞ škálovatelné</div>
-  </div>
-  <div class="wrap">
-    <div class="badge glass reveal"><span class="live"></span> Dostupný pro nové projekty</div>
-    <!-- EDIT 1 + EDIT 2 -->
-    <h1 class="reveal" data-d="1">Ahoj, jsem <span class="accent-text">Rostislav&nbsp;Jirák</span>.<br>Proměním nápad v produkt, který <span class="accent-text">funguje</span>.</h1>
-    <p class="lead reveal" data-d="2">Fullstack vývojář se smyslem pro byznys. Weby a aplikace navrhuju tak, aby nejen běžely, ale i přinášely výsledky.</p>
-    <div class="cta-row reveal" data-d="3">
-      <a href="#kontakt" class="btn btn-primary">Pojďme spolupracovat →</a>
-      <a href="#projekty" class="btn btn-ghost">Moje práce</a>
+  <div class="wrap hero-wrap">
+    <div class="hero-text">
+      <div class="badge glass reveal"><span class="live"></span> Dostupný pro nové projekty</div>
+      <h1 class="reveal" data-d="1">Ahoj, jsem <span class="accent-text">Rostislav&nbsp;Jirák</span>.<br>Proměním nápad v produkt, který <span class="accent-text">funguje</span>.</h1>
+      <p class="lead reveal" data-d="2">Fullstack vývojář se smyslem pro byznys. Weby a aplikace navrhuju tak, aby nejen běžely, ale i přinášely výsledky.</p>
+      <div class="cta-row reveal" data-d="3">
+        <a href="#kontakt" class="btn btn-primary">Pojďme spolupracovat →</a>
+        <a href="#projekty" class="btn btn-ghost">Moje práce</a>
+      </div>
+      <div class="hero-stats reveal" data-d="3">
+        <!-- EDIT: doplň reálná čísla -->
+        <div class="stat"><b>5+</b><small>let praxe</small></div>
+        <div class="stat"><b>30+</b><small>projektů</small></div>
+        <div class="stat"><b>100%</b><small>nasazení</small></div>
+      </div>
+    </div>
+    <div class="hero-photo reveal" data-d="2">
+      <div class="photo-frame glass">
+        <!-- EDIT: vlož fotku — nahraď <span> značkou <img src="assets/foto.jpg" alt="Rostislav Jirák"> -->
+        <div class="avatar"><span>TVOJE FOTKA<br>(nahraď v assets/foto.jpg)</span></div>
+      </div>
+      <div class="chip glass c1">&lt;/&gt; clean code</div>
+      <div class="chip glass c2">{ web · mobile }</div>
+      <div class="chip glass c3">⚡ rychlé dodání</div>
+      <div class="chip glass c4">✦ na míru</div>
     </div>
   </div>
 </header>
-
-<!-- O MNĚ -->
-<section class="section" id="o-mne">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">O mně</span>
-      <h2>Vývojář, který rozumí i&nbsp;<span class="accent-text">byznysu</span>.</h2>
-    </div>
-    <div class="about-grid">
-      <div class="about-card glass reveal">
-        <!-- EDIT 8: sem vlož svoji fotku — nahraď <span> značku <img src="assets/foto.jpg"> -->
-        <div class="avatar"><span>FOTKA<br>(nahraď v assets/foto.jpg)</span></div>
-        <div class="stats">
-          <!-- EDIT 4: doplň reálná čísla -->
-          <div class="stat"><b>5+</b><small>let praxe</small></div>
-          <div class="stat"><b>30+</b><small>projektů</small></div>
-          <div class="stat"><b>100%</b><small>nasazení</small></div>
-        </div>
-      </div>
-      <div class="about-text glass reveal" data-d="1">
-        <!-- EDIT 3: přepiš podle sebe -->
-        <p>Jsem <strong>fullstack vývojář</strong> zaměřený na webové a mobilní aplikace a moderní webové stránky. Baví mě převádět nápady do funkčních produktů — od návrhu přes kód až po nasazení.</p>
-        <p>Díky zkušenostem z pozice <strong>obchodního zástupce</strong> nekoukám na projekt jen technicky. Rozumím tomu, co potřebuje klient i jeho zákazník, a umím to spojit dohromady. To je rozdíl mezi „kódem, který funguje" a „produktem, který prodává".</p>
-        <p>Hledám zajímavé zakázky i dlouhodobou spolupráci. Pokud máš nápad, pojďme ho rozjet.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- SLUŽBY -->
 <section class="section" id="sluzby">
