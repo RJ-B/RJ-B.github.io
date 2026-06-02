@@ -209,7 +209,7 @@ section{scroll-margin-top:90px}
 .svc p{color:var(--muted);font-size:.95rem}
 
 /* ============================ PROJEKTY ============================ */
-.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:22px}
 .proj{overflow:hidden;transition:.3s;display:flex;flex-direction:column}
 .proj:hover{transform:translateY(-6px)}
 .proj-thumb{aspect-ratio:16/10;position:relative;overflow:hidden;border-bottom:1px solid var(--glass-border)}
@@ -227,6 +227,14 @@ section{scroll-margin-top:90px}
 .proj-links{display:flex;gap:16px;margin-top:6px;font-size:.88rem;font-weight:600}
 .proj-links span{display:inline-flex;align-items:center;gap:6px;color:var(--accent);transition:gap .2s}
 .proj:hover .proj-links span{gap:9px}
+/* CTA karta „Váš projekt zde" */
+.proj-cta{border:1.5px dashed rgba(45,212,191,.35);background:rgba(45,212,191,.04);align-items:center;justify-content:center;text-align:center;transition:.3s,border-color .3s}
+.proj-cta:hover{border-color:rgba(45,212,191,.7);background:rgba(45,212,191,.08)}
+.cta-inner{padding:34px 26px;display:flex;flex-direction:column;align-items:center;gap:13px}
+.proj-cta .plus{width:58px;height:58px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:30px;line-height:1;color:var(--accent);background:rgba(45,212,191,.12);border:1px solid rgba(45,212,191,.3)}
+.proj-cta h3{font-family:var(--font-display);font-size:1.25rem;font-weight:600}
+.proj-cta p{color:var(--muted);font-size:.92rem;max-width:240px;line-height:1.5}
+.proj-cta .cta-link{color:var(--accent);font-weight:600;font-size:.88rem;font-family:var(--font-mono);margin-top:4px;transition:gap .2s}
 
 /* ============================ KONTAKT ============================ */
 .contact{padding:56px;text-align:center;position:relative;overflow:hidden}
@@ -321,8 +329,7 @@ section{scroll-margin-top:90px}
 
 <!-- NAVIGACE -->
 <nav class="nav" id="nav">
-  <!-- EDIT 1: jméno / iniciály -->
-  <a href="#" class="brand"><span class="dot"></span>Rostislav Jirák</a>
+  <a href="#" class="brand"><span class="dot"></span>Ing. Rostislav Jirák jr.</a>
   <div class="nav-links" id="navLinks">
     <a href="#sluzby">Co nabízím</a>
     <a href="#projekty">Projekty</a>
@@ -337,7 +344,7 @@ section{scroll-margin-top:90px}
   <div class="wrap hero-wrap">
     <div class="hero-text">
       <div class="badge glass reveal"><span class="live"></span> Dostupný pro nové projekty</div>
-      <h1 class="reveal" data-d="1">Ahoj, jsem <span class="accent-text">Rostislav&nbsp;Jirák</span>.<br>Proměním nápad v produkt, který <span class="accent-text">funguje</span>.</h1>
+      <h1 class="reveal" data-d="1">Proměním vaše nápady ve skutečnost, kterou vám budou <span class="accent-text">závidět</span>.</h1>
       <p class="lead reveal" data-d="2">Fullstack vývojář se smyslem pro byznys. Weby a aplikace navrhuju tak, aby nejen běžely, ale i přinášely výsledky.</p>
       <div class="cta-row reveal" data-d="3">
         <a href="#kontakt" class="btn btn-primary">Pojďme spolupracovat →</a>
@@ -405,6 +412,14 @@ section{scroll-margin-top:90px}
       <p>Vybrané weby a aplikace, na kterých jsem pracoval — od konfigurátoru s e-shopem po firemní prezentace.</p>
     </div>
     <div class="proj-grid">
+      <a class="proj proj-cta glass reveal" href="#kontakt">
+        <div class="cta-inner">
+          <div class="plus">+</div>
+          <h3>Váš projekt zde</h3>
+          <p>Máte nápad? Pojďme z něj vytvořit další úspěšný projekt.</p>
+          <span class="cta-link">Nezávazně poptat →</span>
+        </div>
+      </a>
       <a class="proj glass reveal" href="https://string-art-delta.vercel.app/" target="_blank" rel="noopener">
         <div class="proj-thumb g1"><img src="assets/proj-stringart.jpg" alt="StringIt — String Art generátor" loading="lazy" /></div>
         <div class="proj-body">
