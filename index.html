@@ -5,17 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!--
   ============================================================================
-  OSOBNI PREZENTACE - glassmorphism, dark, one-page
+  OSOBNI PREZENTACE - Ing. Rostislav Jirak - glassmorphism, dark, one-page
+  Staticky web pro GitHub Pages (rj-b.github.io), bez backendu.
   ----------------------------------------------------------------------------
-  CO UPRAVIT (mista k uprave jsou v kodu oznacena komentarem  EDIT N: ... ):
-    1. [Tve jmeno]      - v titulku, v navigaci a v hero sekci
-    2. Hero podnadpis   - jednou vetou kdo jsi / co delas
-    3. O mne - text     - 2 odstavce o tobe (vyvojar + obchodnik)
-    4. Statistiky       - roky praxe / pocet projektu / klienti
-    5. Tech stack       - uprav seznam technologii podle reality
-    6. Projekty         - 3 karty: nazev, popis, stitky, odkazy + obrazek
-    7. Kontakt          - e-mail, telefon, LinkedIn, GitHub
-    8. (volitelne) Fotka - do .avatar a do projektovych karet
+  ZBYVA DOPLNIT:
+    - Fotka: v .hero-photo .avatar nahrad <span> znackou
+             <img src="assets/foto.jpg" alt="Rostislav Jirak">
+    - LinkedIn / GitHub: skutecne odkazy v sekci Kontakt (ted placeholdery)
   ============================================================================
 -->
 <title>Ing. Rostislav Jirák — Fullstack vývojář</title>
@@ -211,16 +207,6 @@ section{scroll-margin-top:90px}
 .svc h3{font-family:var(--font-display);font-size:1.2rem;font-weight:600;margin-bottom:10px}
 .svc p{color:var(--muted);font-size:.95rem}
 
-/* ============================ TECH STACK ============================ */
-.stack-wrap{padding:38px}
-.stack-group{margin-bottom:26px}
-.stack-group:last-child{margin-bottom:0}
-.stack-group h4{font-family:var(--font-mono);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
-.tags{display:flex;flex-wrap:wrap;gap:10px}
-.tag{font-family:var(--font-mono);font-size:.88rem;color:var(--muted);padding:9px 16px;border-radius:11px;
-  background:var(--glass);border:1px solid var(--line);transition:.25s}
-.tag:hover{color:var(--ink);border-color:rgba(45,212,191,.4);background:rgba(45,212,191,.08)}
-
 /* ============================ PROJEKTY ============================ */
 .proj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
 .proj{overflow:hidden;transition:.3s;display:flex;flex-direction:column}
@@ -338,7 +324,6 @@ section{scroll-margin-top:90px}
   <a href="#" class="brand"><span class="dot"></span>Rostislav Jirák</a>
   <div class="nav-links" id="navLinks">
     <a href="#sluzby">Co nabízím</a>
-    <a href="#stack">Tech stack</a>
     <a href="#projekty">Projekty</a>
     <a href="#kontakt" class="nav-cta">Spojit se</a>
   </div>
@@ -405,40 +390,6 @@ section{scroll-margin-top:90px}
         <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v5h-5"/></svg></div>
         <h3>Konzultace</h3>
         <p>Technické i obchodní poradenství. Pomohu rozhodnout, co stavět, jak a proč to dává smysl.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- TECH STACK -->
-<section class="section" id="stack">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">Tech stack</span>
-      <h2>Nástroje, se kterými pracuji</h2>
-    </div>
-    <!-- EDIT 5: uprav technologie podle reality -->
-    <div class="stack-wrap glass reveal">
-      <div class="stack-group">
-        <h4>Frontend</h4>
-        <div class="tags">
-          <span class="tag">React</span><span class="tag">Next.js</span><span class="tag">TypeScript</span>
-          <span class="tag">Flutter</span><span class="tag">Tailwind CSS</span><span class="tag">HTML / CSS</span>
-        </div>
-      </div>
-      <div class="stack-group">
-        <h4>Backend</h4>
-        <div class="tags">
-          <span class="tag">Node.js</span><span class="tag">Spring Boot</span><span class="tag">PostgreSQL</span>
-          <span class="tag">Supabase</span><span class="tag">REST API</span><span class="tag">Python</span>
-        </div>
-      </div>
-      <div class="stack-group">
-        <h4>Nástroje &amp; Infra</h4>
-        <div class="tags">
-          <span class="tag">Git</span><span class="tag">Docker</span><span class="tag">CI/CD</span>
-          <span class="tag">Render</span><span class="tag">Figma</span><span class="tag">Vercel</span>
-        </div>
       </div>
     </div>
   </div>
@@ -553,7 +504,7 @@ section{scroll-margin-top:90px}
   }
 
   // spotlight glow na kartách
-  document.querySelectorAll('.svc, .proj, .about-card, .about-text, .stack-wrap, .contact').forEach(card => {
+  document.querySelectorAll('.svc, .proj, .contact').forEach(card => {
     card.classList.add('glow-card');
     if(isTouch) return;
     card.addEventListener('pointermove', (e) => {
