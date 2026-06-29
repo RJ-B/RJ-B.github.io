@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
+<!-- Google Analytics (GA4) + Consent Mode v2 — měření až po souhlasu (GDPR/EHP) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  // výchozí stav: vše zamítnuto, dokud návštěvník neudělí souhlas
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    wait_for_update: 500
+  });
+  // pokud návštěvník už dříve souhlasil, obnov souhlas okamžitě
+  if (localStorage.getItem('cookie-consent') === 'granted') {
+    gtag('consent', 'update', { analytics_storage: 'granted' });
+  }
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-E9YL4NLDJK"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-E9YL4NLDJK', { anonymize_ip: true });
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <!--
@@ -14,7 +36,7 @@
     - LinkedIn / GitHub: skutecne odkazy v sekci Kontakt (ted placeholdery)
   ============================================================================
 -->
-<title>Ing. Rostislav Jirák — Fullstack vývojář</title>
+<title>codeing — Fullstack vývojář | Rostislav Jirák</title>
 <meta name="description" content="Fullstack vývojář se smyslem pro byznys. Tvořím weby a aplikace, které nejen fungují, ale i přinášejí výsledky." />
 
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
@@ -23,14 +45,14 @@
 <!-- Open Graph / Twitter — náhled při sdílení odkazu -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://rj-b.github.io/" />
-<meta property="og:title" content="Ing. Rostislav Jirák — Fullstack vývojář" />
+<meta property="og:title" content="codeing — Fullstack vývojář | Rostislav Jirák" />
 <meta property="og:description" content="Tvořím weby a aplikace, které nejen fungují, ale i přinášejí výsledky." />
 <meta property="og:image" content="https://rj-b.github.io/assets/og-image.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:locale" content="cs_CZ" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Ing. Rostislav Jirák — Fullstack vývojář" />
+<meta name="twitter:title" content="codeing — Fullstack vývojář | Rostislav Jirák" />
 <meta name="twitter:description" content="Tvořím weby a aplikace, které nejen fungují, ale i přinášejí výsledky." />
 <meta name="twitter:image" content="https://rj-b.github.io/assets/og-image.jpg" />
 
@@ -40,6 +62,7 @@
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Ing. Rostislav Jirák",
+  "alternateName": "codeing",
   "jobTitle": "Fullstack vývojář",
   "email": "rjirak.jr@gmail.com",
   "url": "https://rj-b.github.io/",
@@ -130,8 +153,12 @@ section{scroll-margin-top:90px}
   padding:12px 14px 12px 20px;border-radius:16px;transition:.4s ease;}
 .nav.scrolled{background:rgba(10,14,26,.55);backdrop-filter:blur(18px) saturate(150%);
   -webkit-backdrop-filter:blur(18px) saturate(150%);border:1px solid var(--line);box-shadow:0 10px 30px -10px rgba(0,0,0,.5);}
-.brand{font-family:var(--font-display);font-weight:700;font-size:1.05rem;letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
-.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
+.brand{font-family:var(--font-display);font-weight:700;font-size:1.28rem;letter-spacing:-.03em;line-height:1;display:flex;align-items:center;gap:9px}
+.brand .brand-mark{width:34px;height:23px;flex:none;display:block}
+.brand .bw-1{color:var(--ink)}
+.brand .bw-2{background:var(--accent-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.brand:hover .brand-mark{filter:drop-shadow(0 0 10px rgba(45,212,191,.45))}
+.brand-mark{transition:filter .25s}
 .nav-links{display:flex;gap:6px;align-items:center}
 .nav-links a{font-size:.9rem;color:var(--muted);padding:8px 14px;border-radius:10px;transition:.25s}
 .nav-links a:hover{color:var(--ink);background:rgba(255,255,255,.05)}
@@ -357,6 +384,21 @@ section{scroll-margin-top:90px}
 .proj{transform-style:preserve-3d;will-change:transform}
 
 /* Pozn.: animace běží vždy (na přání uživatele) — pravidlo pro „reduced motion" záměrně vynecháno. */
+
+/* ============================ COOKIE LIŠTA ============================ */
+.cookiebar{position:fixed;left:50%;bottom:22px;transform:translate(-50%,140%);z-index:999;
+  width:min(680px,calc(100% - 32px));padding:18px 22px;border-radius:16px;
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  box-shadow:var(--glass-shadow);transition:transform .55s cubic-bezier(.22,1,.36,1)}
+.cookiebar.show{transform:translate(-50%,0)}
+.cookie-text{color:var(--muted);font-size:.9rem;line-height:1.5;flex:1;min-width:240px}
+.cookie-text b{color:var(--ink);font-weight:600}
+.cookie-actions{display:flex;gap:10px;flex-shrink:0}
+.cookie-btn{padding:10px 18px;font-size:.88rem}
+@media(max-width:520px){
+  .cookiebar{flex-direction:column;align-items:stretch;gap:14px;bottom:12px}
+  .cookie-actions{justify-content:flex-end}
+}
 </style>
 </head>
 <body>
@@ -375,7 +417,23 @@ section{scroll-margin-top:90px}
 
 <!-- NAVIGACE -->
 <nav class="nav" id="nav">
-  <a href="#" class="brand"><span class="dot"></span>Ing. Rostislav Jirák jr.</a>
+  <a href="#" class="brand" aria-label="codeing — Fullstack vývojář">
+    <svg class="brand-mark" viewBox="0 0 44 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="codeingGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#2dd4bf"/>
+          <stop offset=".55" stop-color="#22d3ee"/>
+          <stop offset="1" stop-color="#38bdf8"/>
+        </linearGradient>
+      </defs>
+      <g fill="none" stroke="url(#codeingGrad)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="12,6 4,14 12,22"/>
+        <polyline points="32,6 40,14 32,22"/>
+      </g>
+      <line x1="25.5" y1="5" x2="18.5" y2="23" stroke="#f4f6fb" stroke-width="3.4" stroke-linecap="round"/>
+    </svg>
+    <span class="brand-word"><span class="bw-1">code</span><span class="bw-2">ing</span></span>
+  </a>
   <div class="nav-links" id="navLinks">
     <a href="#sluzby">Co nabízím</a>
     <a href="#projekty">Projekty</a>
@@ -526,10 +584,22 @@ section{scroll-margin-top:90px}
 <!-- PATIČKA -->
 <footer class="footer">
   <div class="wrap">
-    <small>© <span id="year"></span> Ing. Rostislav Jirák · IČO: 19775989</small>
+    <small><b style="color:var(--ink);font-weight:700">codeing</b> · © <span id="year"></span> Ing. Rostislav Jirák · IČO: 19775989</small>
     <a href="#" class="to-top">Nahoru ↑</a>
   </div>
 </footer>
+
+<!-- COOKIE LIŠTA (GDPR / Consent Mode) -->
+<div class="cookiebar glass" id="cookiebar" role="dialog" aria-live="polite" aria-label="Souhlas s cookies" hidden>
+  <p class="cookie-text">
+    Tento web používá cookies pro <b>anonymní měření návštěvnosti</b> (Google Analytics).
+    Měření spustíme jen s tvým souhlasem.
+  </p>
+  <div class="cookie-actions">
+    <button type="button" class="btn btn-ghost cookie-btn" id="cookieReject">Odmítnout</button>
+    <button type="button" class="btn btn-primary cookie-btn" id="cookieAccept">Souhlasím</button>
+  </div>
+</div>
 
 <script>
 (function(){
@@ -538,6 +608,26 @@ section{scroll-margin-top:90px}
 
   // rok
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // cookie souhlas (Google Consent Mode)
+  (function(){
+    const bar = document.getElementById('cookiebar');
+    if(!bar) return;
+    const saved = localStorage.getItem('cookie-consent');
+    if(saved === 'granted' || saved === 'denied') return; // rozhodnuto, lištu neukazuj
+    function hide(){ bar.classList.remove('show'); setTimeout(()=>{ bar.hidden = true; }, 600); }
+    bar.hidden = false;
+    requestAnimationFrame(()=>requestAnimationFrame(()=> bar.classList.add('show')));
+    document.getElementById('cookieAccept').addEventListener('click', ()=>{
+      localStorage.setItem('cookie-consent','granted');
+      if(window.gtag) gtag('consent','update',{ analytics_storage:'granted' });
+      hide();
+    });
+    document.getElementById('cookieReject').addEventListener('click', ()=>{
+      localStorage.setItem('cookie-consent','denied');
+      hide();
+    });
+  })();
 
   // nav scrolled + scroll progress
   const nav = document.getElementById('nav');
