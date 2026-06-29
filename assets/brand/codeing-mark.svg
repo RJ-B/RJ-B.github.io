@@ -1,7 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="codeing">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 282.48 282.48" width="282" height="282" role="img" aria-label="codeing">
 <defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="0.35"><stop offset="0" stop-color="#2dd4bf"/><stop offset="0.55" stop-color="#22d3ee"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs>
-<rect x="0" y="0" width="100" height="100" rx="22.0" ry="22.0" fill="#0f172a"/>
-<g transform="translate(23.08,50.00) scale(0.2804)">
+<g transform="translate(45.24,141.24)">
   <g fill="none" stroke="url(#tg)" stroke-width="32.0" stroke-linecap="round" stroke-linejoin="round">
     <polyline points="66.0,-80.0 6.0,0.0 66.0,80.0" />
     <polyline points="126.0,-80.0 186.0,0.0 126.0,80.0" />
